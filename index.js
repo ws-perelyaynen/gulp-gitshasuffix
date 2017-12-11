@@ -88,9 +88,9 @@ module.exports = function (options) {
 				data = JSON.parse(data);
 				Object.assign(readedJson, data);
 				readedJson = JSON.stringify(readedJson);
-				return fs.writeFileSync(manifestPath, readedJson, callback);
+				return fs.writeFileSync(manifestPath, readedJson);
 			} else {
-				return fs.writeFileSync(manifestPath, data, callback);
+				return fs.writeFileSync(manifestPath, data);
 			}
 		} else {
 			callback();
