@@ -1,8 +1,8 @@
-var through = require('through2'),
-	gutil = require('gulp-util'),
-	path = require('path'),
-	fs = require('fs'),
-	git = require('./lib/git');
+var through = require('through2');
+var gutil = require('gulp-util');
+var path = require('path');
+var fs = require('fs');
+var git = require('./lib/git');
 
 module.exports = function (options) {
 	'use strict';
@@ -11,14 +11,14 @@ module.exports = function (options) {
 
 	options = options || {};
 	var length = options.length || 6;
-	var separator = options.separator || options.seperator || '-';
+	var separator = options.separator || '-';
 	var trimRelatedPath  = options.trimRelatedPath || '';
 	var manifest = '';
 	var manifestData = {};
 	if (options.manifest) {
 		manifest = process.cwd() + '/' + options.manifest;
 	} else {
-		manifest = process.cwd() + '/./manifesssst.json';
+		manifest = process.cwd() + '/./manifest.json';
 	}
 	var folder = !!options.folder;
 
@@ -88,9 +88,11 @@ module.exports = function (options) {
 				data = JSON.parse(data);
 				Object.assign(readedJson, data);
 				readedJson = JSON.stringify(readedJson);
-				return fs.writeFileSync(manifestPath, readedJson);
+				fs.writeFileSync(manifestPath, readedJson);
+				callback();
 			} else {
-				return fs.writeFileSync(manifestPath, data);
+				fs.writeFileSync(manifestPath, data);
+				callback();
 			}
 		} else {
 			callback();
